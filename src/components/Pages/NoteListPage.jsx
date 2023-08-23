@@ -1,5 +1,5 @@
 import ListItem from '../ListItem';
-import { Outlet, useLoaderData, useLocation } from 'react-router-dom';
+import { Outlet, useLoaderData } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
 import { RefetchContext } from '../../context/RefetchContext';
@@ -17,7 +17,7 @@ const NotesListPage = () => {
   const match = (/\/note\/(\d+)/).test(window.location.pathname);
 
   useEffect(() => {
-    
+
     (async () => {
       if (refetchSignal) {  // Refetch if the signal is toggled
         const newNotes = await loader();
