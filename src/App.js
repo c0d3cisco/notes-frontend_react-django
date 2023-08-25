@@ -4,10 +4,11 @@ import NotesListPage, { loader as notesListLoader } from './pages/NoteListPage';
 import NotePage, { loader as noteLoader, dynamicActionHandler } from './pages/NotePage';
 import {
   RouterProvider,
-  createBrowserRouter,
+  // createBrowserRouter, // - Why does this not work??
+  createHashRouter,
 } from "react-router-dom";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <NotesListPage />,
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     action: dynamicActionHandler,
   },{
     path: "/note/create",
-    element: <NotePage />,
+    element: <NotePage isCreate={true} />,
     action: dynamicActionHandler,
   },
 ]);

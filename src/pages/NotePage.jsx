@@ -37,12 +37,12 @@ export async function dynamicActionHandler({ request, params }) {
 	return redirect(`/`);
 }
 
-const NotePage = () => {
+const NotePage = ({isCreate=false} ) => {
 
 	const [note, setNotes] = useState(useLoaderData())
 	const [actionType, setActionType] = useState('');
 
-	let match = '/note/create' ===	window.location.pathname;
+	console.log('isCreate', isCreate);  // for debugging
 
 	return (
 		<div className='note'>
@@ -52,11 +52,11 @@ const NotePage = () => {
 						type="submit"  // changed to type button so it doesn't submit
 						onClick={() => {
 							if(/^[ ]+$/.test(note?.body) || !note?.body){
-								if(match) redirect('/')
-								if(!match) setActionType('delete form')
+								if(isCreate) redirect('/')
+								if(!isCreate) setActionType('delete form')
 							} else {
-								if(match) setActionType('create form')
-								if(!match) setActionType('update form')
+								if(isCreate) setActionType('create form')
+								if(!isCreate) setActionType('update form')
 							}
 						}}
 					>
@@ -66,9 +66,9 @@ const NotePage = () => {
 					</button>
 					<button
 						type="submit"  // changed to type button
-						onClick={() => match ? redirect('/') : setActionType('delete form')}  // set actionType
+						onClick={() => isCreate ? redirect('/') : setActionType('delete form')}  // set actionType
 					>
-						{match ? 'X' : 'Delete'}
+						{isCreate ? 'X' : 'Delete'}
 					</button>
 					<input
 						hidden
