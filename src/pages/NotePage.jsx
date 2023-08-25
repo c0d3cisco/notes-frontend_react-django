@@ -19,17 +19,17 @@ export async function dynamicActionHandler({ request, params }) {
 			console.log('trying to update');
 			const updates = Object.fromEntries(formData);
 			console.log('updates', updates);  // for debugging
-			await axios.put(`http://127.0.0.1:8000/api/notes/${params.id}/update/`, updates);
+			await axios.put(`http://127.0.0.1:8000/api/notes/${params.id}/`, updates);
 			break;
 		case 'delete form':
 			console.log('trying to delete'); // for debugging
-			await axios.delete(`http://127.0.0.1:8000/api/notes/${params.id}/delete/`); // added await
+			await axios.delete(`http://127.0.0.1:8000/api/notes/${params.id}/`); // added await
 			break;
 		case 'create form':
 			console.log('trying to create'); // for debugging
 			const creates = Object.fromEntries(formData);
 			console.log('creates', creates);  // for debugging
-			await axios.post(`http://127.0.0.1:8000/api/notes/create/`, creates);
+			await axios.post(`http://127.0.0.1:8000/api/notes/`, creates);
 			break;
 		default:
 			break;
