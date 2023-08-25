@@ -1,39 +1,38 @@
 import './App.css';
 import Header from './components/Header';
-import NotesListPage, { loader as notesListLoader } from './components/Pages/NoteListPage';
-import NotePage, { loader as noteLoader } from './components/Pages/NotePage';
+import NotesListPage, { loader as notesListLoader } from './pages/NoteListPage';
+import NotePage, { loader as noteLoader, dynamicActionHandler } from './pages/NotePage';
 import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import { RefetchProvider } from './context/RefetchContext';
-
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <NotesListPage />,
     loader: notesListLoader,
-    children: [{
-      path: "/note/:id",
-      element: <NotePage />,
-      loader: noteLoader,
-    },],
+  },{
+    path: "/note/:id",
+    element: <NotePage />,
+    loader: noteLoader,
+    action: dynamicActionHandler,
+  },{
+    path: "/note/create",
+    element: <NotePage />,
+    action: dynamicActionHandler,
   },
 ]);
 
 
 function App() {
   return (
-    <RefetchProvider>
-      <div className="container dark">
-        <div className="app">
-          <Header />
-          <RouterProvider router={router} />
-        </div>
+    <div className="container dark">
+      <div className="app">
+        <Header />
+        <RouterProvider router={router} />
       </div>
-    </RefetchProvider>
-
+    </div>
   );
 }
 
